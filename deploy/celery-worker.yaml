@@ -4,6 +4,7 @@ kind: Deployment
 metadata:
   name: celery-worker
 spec:
+  replicas: 3
   template:
     metadata:
       labels:
@@ -14,21 +15,22 @@ spec:
       - name: celery-worker
         image: quay.io/kubernetes-for-developers/celery-worker:0.4.0
         imagePullPolicy: Always
-        envFrom:
-        - configMapRef:
-           name: bitnami-rabbitmq-config
-        livenessProbe:
-          httpGet:
-            path: /alive
-            port: 5000
-          initialDelaySeconds: 1
-          periodSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 5000
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        # envFrom:
+        # - configMapRef:
+        #    name: bitnami-rabbitmq-config
+        # livenessProbe:
+        #   exec:
+        #     command: 
+        #     - "cd /opt/app; celery -A celery_conf status"
+        #   initialDelaySeconds: 30
+        #   timeoutSeconds: 5
+        #   failureThreshold: 6
+        # readinessProbe:
+        #   exec:
+        #     command: 
+        #     - "cd /opt/app; celery -A celery_conf status"
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 3
       initContainers:
         - name: init-celery-broker
           image: busybox
