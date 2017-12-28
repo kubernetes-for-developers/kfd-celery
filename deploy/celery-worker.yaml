@@ -12,11 +12,11 @@ spec:
     spec:
       containers:
       - name: celery-worker
-        image: quay.io/kubernetes-for-developers/celery-worker:latest
+        image: quay.io/kubernetes-for-developers/celery-worker:0.4.0
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
-           name: bitname-rabbitmq-config
+           name: bitnami-rabbitmq-config
         livenessProbe:
           httpGet:
             path: /alive

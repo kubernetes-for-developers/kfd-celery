@@ -15,4 +15,4 @@ ADD requirements.txt /opt/app/requirements.txt
 # install the library dependencies for this application
 RUN pip3 install -r /opt/app/requirements.txt
 WORKDIR /opt/app
-CMD ["/bin/sh","-c","/usr/local/bin/celery -A celery_conf worker -l info"]
+CMD ["/bin/sh","-c","/usr/bin/celery -A celery_conf worker -l info"]
