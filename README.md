@@ -2,18 +2,6 @@
 
 example celery worker and deployment specs for Kubernetes for Developers
 
-To create images for this example:
-
-    git checkout 0.4.0
-    docker build -t quay.io/kubernetes-for-developers/celery-worker:0.4.0 .
-    docker build -t quay.io/kubernetes-for-developers/celery-worker:latest .
-    docker push quay.io/kubernetes-for-developers/celery-worker
-
-_Note_:
-
-you will need to have previously invoked "docker login quay.io" to connect to
-quay to send it images...
-
 # Experimenting with the base image
 
 To experiment within this image using Kubernetes:
@@ -32,8 +20,12 @@ https://quay.io/repository/kubernetes-for-developers/celery-worker?tab=tags
 
     git checkout 0.4.0
     docker build -t quay.io/kubernetes-for-developers/celery-worker:0.4.0 .
-    git checkout master
+    #git checkout master
     docker build -t quay.io/kubernetes-for-developers/celery-worker:latest .
     docker push quay.io/kubernetes-for-developers/celery-worker
 
+_Note_:
+
+you will need to have previously invoked "docker login quay.io" to connect to
+quay to send it images...
 

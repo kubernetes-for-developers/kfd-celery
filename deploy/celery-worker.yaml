@@ -21,16 +21,16 @@ spec:
         # livenessProbe:
         #   exec:
         #     command:
-        #     - "cd /opt/app; celery -A celery_conf status"
+        #     - "/opt/app/celery_status.sh"
         #   initialDelaySeconds: 30
         #   timeoutSeconds: 5
         #   failureThreshold: 6
-        # readinessProbe:
-        #   exec:
-        #     command:
-        #     - "cd /opt/app; celery -A celery_conf status"
-        #   initialDelaySeconds: 5
-        #   timeoutSeconds: 3
+        readinessProbe:
+          exec:
+            command:
+            - "/opt/app/celery_status.sh"
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
       initContainers:
         - name: init-celery-broker
           image: busybox

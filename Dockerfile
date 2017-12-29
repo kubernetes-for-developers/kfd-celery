@@ -8,12 +8,16 @@ RUN apk upgrade
 RUN apk add python3
 # make a directory for our application
 RUN mkdir -p /opt/app
-# move requirements file into the container
+# add our application files
 ADD celery_conf.py /opt/app/celery_conf.py
 ADD run_tasks.py /opt/app/run_tasks.py
-ADD requirements.txt /opt/app/requirements.txt
+# add the wrapper scripts for the primary process and probes
 ADD run.sh /opt/app/run.sh
+ADD celery_status.sh /opt/app/celery_status.sh
+# move requirements file into the container
+ADD requirements.txt /opt/app/requirements.txt
 # install the library dependencies for this application
 RUN pip3 install -r /opt/app/requirements.txt
+# set the default directory for commands to be /opt/app
 WORKDIR /opt/app
 CMD ["/bin/sh", "-c","/opt/app/run.sh"]
