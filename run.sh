@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# echo all the commands invoked within this shell to STDOUT 
+# echo all the commands invoked within this shell to STDOUT
 # so we can see what is being run in the logs
 set -x
 
