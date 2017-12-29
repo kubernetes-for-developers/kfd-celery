@@ -11,6 +11,7 @@ RUN mkdir -p /opt/app
 # add our application files
 ADD celery_conf.py /opt/app/celery_conf.py
 ADD run_tasks.py /opt/app/run_tasks.py
+ADD submit_tasks.py /opt/app/submit_tasks.py
 # add the wrapper scripts for the primary process and probes
 ADD run.sh /opt/app/run.sh
 ADD celery_status.sh /opt/app/celery_status.sh
