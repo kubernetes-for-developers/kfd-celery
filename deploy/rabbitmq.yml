@@ -1,0 +1,75 @@
+---
+# EXPORT SERVICE INTERFACE
+kind: Service
+apiVersion: v1
+metadata:
+    name: message-queue
+    labels:
+      app: rabbitmq
+      role: master
+      tier: queue
+spec:
+  ports:
+  - port: 5672
+    targetPort: 5672
+  selector:
+      app: rabbitmq
+      role: master
+      tier: queue
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bitnami-rabbitmq-config
+data:
+  RABBITMQ_USERNAME: "user"
+  RABBITMQ_PASSWORD: "bitnami"
+  RABBITMQ_VHOST: "/"
+  RABBITMQ_NODE_PORT_NUMBER: "5672"
+  RABBITMQ_MANAGER_PORT_NUMBER: "15672"
+  WORKER_DEBUG_LEVEL: "info"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rabbitmq-pv-claim
+  labels:
+    app: rabbitmq
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+         app: rabbitmq
+         role: master
+         tier: queue
+    spec:
+      containers:
+      - name: rabbitmq
+        image: bitnami/rabbitmq:3.7
+        envFrom:
+        - configMapRef:
+            name: bitnami-rabbitmq-config
+        ports:
+        - containerPort: 5672
+          name: queue
+          containerPort: 15672
+          name: queue-mgmt
+        volumeMounts:
+        - name: rabbitmq-storage
+          mountPath: /bitnami
+      volumes:
+      - name: rabbitmq-storage
+        persistentVolumeClaim:
+          claimName: rabbitmq-pv-claim

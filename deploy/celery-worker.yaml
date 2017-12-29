@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: celery-worker
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+         app: celery
+         tier: async
+    spec:
+      containers:
+      - name: celery-worker
+        image: quay.io/kubernetes-for-developers/celery-worker:0.4.0
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+           name: bitnami-rabbitmq-config
+        livenessProbe:
+          exec:
+            command:
+            - "/opt/app/celery_status.sh"
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 6
+        readinessProbe:
+          exec:
+            command:
+            - "/opt/app/celery_status.sh"
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+      initContainers:
+        - name: init-celery-broker
+          image: busybox
+          command: ['sh', '-c', 'until nslookup message-queue; do echo waiting for message-queue to be available; sleep 2; done;']
+
