@@ -5,7 +5,7 @@ from celery import Celery
 
 # set username and password for broker, with overrides from environment variables
 rabbitmq_user = os.environ.get('RABBITMQ_USERNAME','user')
-rabbitmq_password = os.environ.get('RABBITMQ_USERNAME','bitnami')
+rabbitmq_password = os.environ.get('RABBITMQ_PASSWORD','bitnami')
 rabbitmq_vhost = os.environ.get('RABBITMQ_VHOST','/')
 
 # Get Kubernetes-provided address of the broker service

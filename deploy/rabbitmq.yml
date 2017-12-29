@@ -27,6 +27,7 @@ data:
   RABBITMQ_VHOST: "/"
   RABBITMQ_NODE_PORT_NUMBER: "5672"
   RABBITMQ_MANAGER_PORT_NUMBER: "15672"
+  WORKER_DEBUG_LEVEL: "info"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

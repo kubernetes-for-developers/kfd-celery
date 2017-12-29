@@ -12,7 +12,8 @@ RUN mkdir -p /opt/app
 ADD celery_conf.py /opt/app/celery_conf.py
 ADD run_tasks.py /opt/app/run_tasks.py
 ADD requirements.txt /opt/app/requirements.txt
+ADD run.sh /opt/app/run.sh
 # install the library dependencies for this application
 RUN pip3 install -r /opt/app/requirements.txt
 WORKDIR /opt/app
-CMD ["/bin/sh","-c","/usr/bin/celery -A celery_conf worker -l info"]
+CMD ["/bin/sh", "-c","/opt/app/run.sh"]
