@@ -18,13 +18,13 @@ spec:
         envFrom:
         - configMapRef:
            name: bitnami-rabbitmq-config
-        # livenessProbe:
-        #   exec:
-        #     command:
-        #     - "/opt/app/celery_status.sh"
-        #   initialDelaySeconds: 30
-        #   timeoutSeconds: 5
-        #   failureThreshold: 6
+        livenessProbe:
+          exec:
+            command:
+            - "/opt/app/celery_status.sh"
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 6
         readinessProbe:
           exec:
             command:
