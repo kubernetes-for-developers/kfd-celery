@@ -50,10 +50,26 @@ spec:
         - configMapRef:
             name: bitnami-rabbitmq-config
         ports:
-        - containerPort: 5672
-          name: queue
+        - name: queue
+          containerPort: 5672
+        - name: queue-mgmt
           containerPort: 15672
-          name: queue-mgmt
+        livenessProbe:
+          exec:
+            command:
+            - rabbitmqctl
+            - status
+          initialDelaySeconds: 120
+          timeoutSeconds: 5
+          failureThreshold: 6
+        readinessProbe:
+          exec:
+            command:
+            - rabbitmqctl
+            - status
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+          periodSeconds: 5
         volumeMounts:
         - name: rabbitmq-storage
           mountPath: /bitnami
