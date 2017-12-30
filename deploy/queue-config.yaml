@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bitnami-rabbitmq-config
+data:
+  RABBITMQ_USERNAME: "user"
+  RABBITMQ_PASSWORD: "bitnami"
+  RABBITMQ_VHOST: "/"
+  RABBITMQ_NODE_PORT_NUMBER: "5672"
+  RABBITMQ_MANAGER_PORT_NUMBER: "15672"
+  WORKER_DEBUG_LEVEL: "info"
