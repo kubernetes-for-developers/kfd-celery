@@ -25,6 +25,6 @@ def add(x, y):
     return x + y
 
 @app.task(bind=true)
-def dump_context(self, x, y)
+def dump_context(self, x, y):
     logger.info('Executing task id {0.id}, args: {0.args!r} kwargs: {0.kwargs!r}'.format(
             self.request))
